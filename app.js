@@ -26,10 +26,13 @@ const usersRoutes = require('./routes/users');
 
 // mongodb://127.0.0.1:27017/yelp-camp
 mongoose.connect(dbUrl, {
-    // useNewUrlParer: true,
-    // useCreateIndex: true,
-    // useUnifiedTopology:true
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 10000 // fail faster while testing
 })
+.then(() => console.log(''))
+.catch(err => console.error('DB connection error:', err));
+
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
